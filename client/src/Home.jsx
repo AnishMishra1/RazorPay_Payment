@@ -1,0 +1,54 @@
+import React from 'react';
+import axios from "axios";
+
+
+const productDetail ={
+    Image : "data:image/jpeg;base64,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",
+    amount : 5000
+}
+
+const Home = () => {
+  const handleCheckOut = async(amount) => {
+
+      const {data:{key}} = await axios.get("http://localhost:5006/api/getkey")
+      const {data: {order}} = await axios.post("http://localhost:5006/api/checkout",{amount})
+
+     const options = {
+       key, // Enter the Key ID generated from the Dashboard
+      amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "Acme Corp",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      callback_url: "http://localhost:5006/api/paymentverification",
+      prefill: {
+            name: "Gaurav Kumar",
+            email: "gaurav.kumar@example.com",
+            contact: "9000090000"
+        },
+        notes: {
+            address: "Razorpay Corporate Office"
+        },
+        theme: {
+            color: "#3399cc"
+        }
+    };
+
+    const razor = new window.Razorpay(options)
+    razor.open();
+
+      
+   }
+    
+  return (
+    <div>
+       <img src={productDetail.Image}  />
+       <h3>{productDetail.amount}</h3>
+       <button onClick={() => handleCheckOut(productDetail.amount)}>Buy</button>
+
+    </div>
+  )
+}
+
+export default Home
